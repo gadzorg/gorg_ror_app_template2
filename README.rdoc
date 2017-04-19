@@ -1,28 +1,51 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+=== Initial Configuration
 
-Things you may want to cover:
+Before first use, you need to configure /config/secrets.yml
 
-* Ruby version
+An example file is available in /config/secretes.yml.template
 
-* System dependencies
+=== Database creation
 
-* Configuration
+Database configuration is in config/database.yml
 
-* Database creation
+You can find an examples of databases.yml in /config :
 
-* Database initialization
+* database.yml.mysql2.template : config file based on mysql2
 
-* How to run the test suite
+* database.yml.sqlite3.template : config file based on sqlite3
 
-* Services (job queues, cache servers, search engines, etc.)
+Then, use :
+ RAILS_ENV=development bundle exec rake db:setup
+ RAILS_ENV=test bundle exec rake db:setup
+ RAILS_ENV=production bundle exec rake db:setup
 
-* Deployment instructions
+=== Database initialization
 
-* ...
+Default database is empty
+
+You will need an admin account to configure the application. There is 2 ways to create an admin account :
+
+* In development environnement : create default accounts
+
+Run :
+ rake db:populate
+
+It will :
+- Flush current database and recreate it from the schema
+- Seed the database with default values (Roles for example)
+- Create default users :
+  - an admin: admin@poubs.org
+  - a helpdesk user : support@poubs.org
+  - 3 basic users : user1@poubs.org, user2@poubs.org, user3@poubs.org
+
+All password are : *password*
+
+* In production environnement : create an account manually or connect from omniauth then set admin Role to the created account
+
+==== Default accounts
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+
+==== Manual Admin granting
